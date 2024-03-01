@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>簡易問答遊戲</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .option {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+        .option:hover {
+            background-color: #e0e0e0;
+        }
+        #score {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        #social-links {
+            margin-top: 50px;
+        }
+        #social-links a {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            text-decoration: none;
+            color: black;
+        }
+        #social-links a:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <h1>簡易問答遊戲</h1>
+    <div id="question"></div>
+    <div id="options"></div>
+    <div id="score">分數：0</div>
+
+    <div id="social-links">
+        <a href="https://www.facebook.com/">Facebook</a>
+        <a href="https://www.instagram.com/">Instagram</a>
+        <a href="https://www.youtube.com/">YouTube</a>
+    </div>
+
+    <script>
+        var questions = [
+            {
+                question: "中國的首都是哪裡？",
+                options: ["北京", "上海", "廣州", "深圳"],
+                answer: "北京"
+            },
+            {
+                question: "美國的首都是哪裡？",
+                options: ["紐約", "洛杉磯", "華盛頓特區", "芝加哥"],
+                answer: "華盛頓特區"
+            },
+            {
+                question: "日本的首都是哪裡？",
+                options: ["東京", "大阪", "京都", "名古屋"],
+                answer: "東京"
+            }
+        ];
+
+        var currentQuestion = 0;
+        var score = 0;
+
+        function displayQuestion() {
+            var questionElement = document.getElementById("question");
+            var optionsElement = document.getElementById("options");
+            var question = questions[currentQuestion];
+
+            questionElement.textContent = question.question;
+            optionsElement.innerHTML = "";
+
+            question.options.forEach(function(option) {
+                var optionElement = document.createElement("div");
+                optionElement.className = "option";
+                optionElement.textContent = option;
+                optionElement.onclick = function() {
+                    if (option === question.answer) {
+                        score++;
+                        document.getElementById("score").textContent = "分數：" + score;
+                    }
+                    currentQuestion++;
+                    if (currentQuestion < questions.length) {
+                        displayQuestion();
+                    } else {
+                        alert("遊戲結束，你的分數是：" + score);
+                    }
+                };
+                optionsElement.appendChild(optionElement);
+            });
+        }
+
+        displayQuestion();
+    </script>
+</body>
+</html>
